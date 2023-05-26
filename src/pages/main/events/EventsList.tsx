@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React from "react";
 import {
   CContainer,
   CTable,
@@ -9,7 +9,7 @@ import {
 } from "@coreui/react";
 import { useWebsocket } from "../../../utils/use-websocket";
 import { WSEventType } from "../../../api/models/Event";
-import { format } from "date-fns";
+import { formatCtime } from "../../../utils/ctime";
 export const EventsList = () => {
   const { messages } = useWebsocket<WSEventType>({
     url: "wss://test.relabs.ru/event",
@@ -25,9 +25,7 @@ export const EventsList = () => {
           {messages.map((it) => (
             <CTableRow key={it.event}>
               <CTableDataCell>{it.event}</CTableDataCell>
-              <CTableDataCell>
-                {format(Number(it.ctime), "dd.MM.yyyy HH:mm")}
-              </CTableDataCell>
+              <CTableDataCell>{formatCtime(it.ctime)}</CTableDataCell>
             </CTableRow>
           ))}
         </CTableBody>

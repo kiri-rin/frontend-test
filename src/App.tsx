@@ -1,8 +1,7 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { BrowserRouter } from "react-router-dom";
-import { AppNavigation } from "./features";
+import { AppNavigation } from "./pages";
 import { QueryClient, QueryClientProvider } from "react-query";
 const queryClient = new QueryClient();
 

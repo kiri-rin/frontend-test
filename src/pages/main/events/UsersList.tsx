@@ -1,19 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import React, { useState } from "react";
 import { api } from "../../../api";
-import {
-  CButton,
-  CContainer,
-  CPagination,
-  CSpinner,
-  CTable,
-  CTableBody,
-  CTableHeaderCell,
-  CTableRow,
-} from "@coreui/react";
+import { CButton, CContainer, CSpinner, CTable } from "@coreui/react";
 import { Pagination } from "../../../components/Pagination";
-import { format } from "date-fns";
-import { UserItem } from "../../../api/models/Users";
+import { formatCtime } from "../../../utils/ctime";
 const columns = [
   {
     key: "id",
@@ -66,7 +56,6 @@ export const UsersList = () => {
     },
     {}
   );
-  console.log(isLoading, "LOADING USERS");
 
   return (
     <CContainer className={"main__row-inner"}>
@@ -75,7 +64,7 @@ export const UsersList = () => {
         items={
           data?.items?.map((it) => ({
             ...it,
-            ctime: format(Number(it.ctime), "dd.MM.yyyy HH:mm"),
+            ctime: formatCtime(it.ctime),
             options: (
               <CButton onClick={() => deleteUser(it.id)}>Удалить</CButton>
             ),
@@ -83,9 +72,13 @@ export const UsersList = () => {
         }
       >
         {(isLoading || isPreviousData) && (
-          <div className={"main__loading-hover"}>
-            <CSpinner />
-          </div>
+          <tbody className={"main__loading-hover"}>
+            <tr>
+              <td>
+                <CSpinner />
+              </td>
+            </tr>
+          </tbody>
         )}
       </CTable>
       <Pagination
@@ -95,7 +88,4 @@ export const UsersList = () => {
       />
     </CContainer>
   );
-};
-const UserRow = ({ user }: { user: UserItem }) => {
-  return <CTableRow></CTableRow>;
 };

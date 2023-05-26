@@ -20,7 +20,6 @@ export const Pagination = ({
     activePageOffset > page - 1
       ? 0
       : Math.min(page - activePageOffset, totalPages - maxVisiblePages);
-  console.log(firstShownPage);
   const visiblePages = Math.min(totalPages - firstShownPage, maxVisiblePages);
   return (
     <CPagination align="end" aria-label="Page navigation example" {...props}>

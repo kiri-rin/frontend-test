@@ -10,31 +10,23 @@ export function useWebsocket<T = any>({
   showMax?: number;
 }) {
   const [messages, setMessages] = useState<T[]>([]);
-  const [error, setError] = useState<string | undefined>();
+  const [error, setError] = useState<any>();
   const [opened, setOpened] = useState(false);
   useEffect(() => {
     const ws = new WebSocket(url);
     ws.onopen = () => {
       setOpened(true);
     };
-
     ws.onmessage = (e) => {
-      console.log(e);
-      // a message was received
       setMessages((prev) =>
         [(preprocessData || JSON.parse)(e.data), ...prev].slice(0, showMax)
       );
     };
-
     ws.onerror = (e) => {
-      // @ts-ignore
-      console.log(e.message as string);
+      setError(e);
     };
-
     ws.onclose = (e) => {
-      // connection closed
       setOpened(true);
-      console.log(e.code, e.reason);
     };
     return () => {
       ws.close();

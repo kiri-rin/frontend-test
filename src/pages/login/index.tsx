@@ -2,7 +2,7 @@ import React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { CContainer, CForm, CFormInput } from "@coreui/react";
-import { useMutation, useQuery } from "react-query";
+import { useMutation } from "react-query";
 import { api } from "../../api";
 import { LoadingButton } from "../../components/Buttons";
 import { useNavigate } from "react-router";
@@ -73,6 +73,7 @@ export const LoginPage = () => {
           }}
           type="password"
           label="Password"
+          placeholder="Enter your password"
           valid={!errors.password}
           invalid={!!(submitCount && errors.password)}
           text={!!submitCount && errors.password}

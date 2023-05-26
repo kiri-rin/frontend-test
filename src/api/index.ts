@@ -7,7 +7,6 @@ const axiosInstance = axios.create({ baseURL: BASE_URL });
 export const api = {
   user: {
     login: async (data: { email: string; password: string }) => {
-      console.log("LOGIN WITH ", data);
       return new Promise((resolve) =>
         setTimeout(() => {
           resolve(true);
